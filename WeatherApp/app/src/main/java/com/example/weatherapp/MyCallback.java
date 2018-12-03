@@ -5,5 +5,5 @@ package com.example.weatherapp;
  */
 
 public interface MyCallback {
-    void callback(String info);
+    void callback(City city);
 }

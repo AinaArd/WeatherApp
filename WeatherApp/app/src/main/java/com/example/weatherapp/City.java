@@ -1,63 +1,82 @@
 package com.example.weatherapp;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-public class City {
+import java.io.Serializable;
 
-    @SerializedName("name")
-    @Expose
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "id",
+        "name",
+        "main",
+        "wind",
+        "sys"
+})
+
+public class City implements Serializable {
+
+    @JsonProperty("id")
+    private Integer id;
+    @JsonProperty("name")
     private String name;
-    @SerializedName("country")
-    @Expose
-    private String country;
-    @SerializedName("temp")
-    @Expose
-    private Integer temp;
-    @SerializedName("lat")
-    @Expose
-    private Integer lat;
-    @SerializedName("lon")
-    @Expose
-    private Integer lon;
+    @JsonProperty("main")
+    private Main main;
+    @JsonProperty("sys")
+    private Sys sys;
+    @JsonProperty("wind")
+    private Wind wind;
 
+    @JsonProperty("id")
+    public Integer getId() {
+        return id;
+    }
+
+    @JsonProperty("id")
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @JsonProperty("name")
     public String getName() {
         return name;
     }
 
+    @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getCountry() {
-        return country;
+    @JsonProperty("main")
+    Main getMain() {
+        return main;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    @JsonProperty("main")
+    public void setMain(Main main) {
+        this.main = main;
     }
 
-    public Integer getTemp() {
-        return temp;
+    @JsonProperty("sys")
+    Sys getSys() {
+        return sys;
     }
 
-    public void setTemp(Integer temp) {
-        this.temp = temp;
+    @JsonProperty("sys")
+    public void setSys(Sys sys) {
+        this.sys = sys;
     }
 
-    public Integer getLat() {
-        return lat;
+    @JsonProperty("wind")
+    Wind getWind() {
+        return wind;
     }
 
-    public void setLat(Integer lat) {
-        this.lat = lat;
-    }
-
-    public Integer getLon() {
-        return lon;
-    }
-
-    public void setLon(Integer lon) {
-        this.lon = lon;
+    @JsonProperty("wind")
+    public void setWind(Wind wind) {
+        this.wind = wind;
     }
 }
+
