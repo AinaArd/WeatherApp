@@ -20,6 +20,11 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final static double KAZANLAT = 55.8;
+    private final static double KAZANLON = 49.0;
+    private final static int NEARESTCITIESAMOUNT = 20;
+    private final static String apiKey = "56fc6c6cb76c0864b4cd055080568268";
+    
     private CityAdapter cityAdapter;
     private List<City> cities;
     private RecyclerView recyclerView;
@@ -52,10 +57,10 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        cityAdapter = new CityAdapter(new ArrayList<City>(1), callback);
+        cityAdapter = new CityAdapter(new ArrayList<City>(0), callback);
         recyclerView.setAdapter(cityAdapter);
 
-        NetworkService.getNetworkService().getWeatherApi().getData(55.8, 49.0, 20, "56fc6c6cb76c0864b4cd055080568268")
+        NetworkService.getNetworkService().getWeatherApi().getData(KAZANLAT, KAZANLON, NEARESTCITIESAMOUNT, apiKey)
                 .enqueue(new Callback<WeatherResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull Response<WeatherResponse> response) {
