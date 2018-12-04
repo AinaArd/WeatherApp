@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.io.Serializable;
 
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "id",
@@ -15,7 +14,6 @@ import java.io.Serializable;
         "wind",
         "sys"
 })
-
 public class City implements Serializable {
 
     @JsonProperty("id")

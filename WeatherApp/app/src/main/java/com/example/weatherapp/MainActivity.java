@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private final static double KAZANLON = 49.0;
     private final static int NEARESTCITIESAMOUNT = 20;
     private final static String apiKey = "56fc6c6cb76c0864b4cd055080568268";
-    
+
     private CityAdapter cityAdapter;
     private List<City> cities;
     private RecyclerView recyclerView;
