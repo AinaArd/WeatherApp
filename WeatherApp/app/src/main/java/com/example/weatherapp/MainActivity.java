@@ -5,12 +5,10 @@ import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.example.weatherapp.entities.City;
 import com.example.weatherapp.interfaces.MyCallback;
@@ -18,14 +16,10 @@ import com.example.weatherapp.network.NetworkService;
 import com.example.weatherapp.network.WeatherResponse;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.functions.Predicate;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,16 +49,13 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("no such permission");
         }*/
         cities = new ArrayList<>();
-        callback = new MyCallback() {
-            @Override
-            public void callback(City city) {
-                Intent intent = new Intent(MainActivity.this, DetailedActivity.class);
-                intent.putExtra("temp", city.getMain().getTemp());
-                intent.putExtra("humidity", city.getMain().getHumidity());
-                intent.putExtra("pressure", city.getMain().getPressure());
-                intent.putExtra("wind", city.getWind().getDeg());
-                startActivity(intent);
-            }
+        callback = city -> {
+            Intent intent = new Intent(MainActivity.this, DetailedActivity.class);
+            intent.putExtra("temp", city.getMain().getTemp());
+            intent.putExtra("humidity", city.getMain().getHumidity());
+            intent.putExtra("pressure", city.getMain().getPressure());
+            intent.putExtra("wind", city.getWind().getDeg());
+            startActivity(intent);
         };
 
         database = Room.databaseBuilder(this,
@@ -77,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         cityAdapter = new CityAdapter(new ArrayList<City>(0), callback);
         recyclerView.setAdapter(cityAdapter);
 
-        NetworkService.getNetworkService().getWeatherApi().getData(KAZANLAT, KAZANLON, NEAREST_CITIES_AMOUNT, apiKey)
+       /* NetworkService.getNetworkService().getWeatherApi().getData(KAZANLAT, KAZANLON, NEAREST_CITIES_AMOUNT, apiKey)
                 .enqueue(new Callback<WeatherResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull Response<WeatherResponse> response) {
@@ -104,6 +95,23 @@ public class MainActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
                         Toast.makeText(MainActivity.this, "An error occurred during networking", Toast.LENGTH_SHORT).show();
                     }
+                });*/
+
+        NetworkService.getNetworkService()
+                .getWeatherApi()
+                .getData(KAZANLAT, KAZANLON, NEAREST_CITIES_AMOUNT, apiKey)
+                .map(WeatherResponse::getCities)
+                .map(list -> {
+                    database.getWeatherDao().insertAll(list);
+                    return list;
+                })
+                .onErrorResumeNext(error ->
+                        database.getWeatherDao().getAllCities()
+                )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(list -> {
+                    cityAdapter.setCities(list);
                 });
     }
 
