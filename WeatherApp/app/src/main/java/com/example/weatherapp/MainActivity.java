@@ -1,7 +1,6 @@
 package com.example.weatherapp;
 
 import android.Manifest;
-import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -18,8 +17,8 @@ import com.example.weatherapp.network.WeatherResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.schedulers.Schedulers;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private final static double KAZANLON = 49.1221;
     private final static int NEAREST_CITIES_AMOUNT = 20;
     private final static String apiKey = "56fc6c6cb76c0864b4cd055080568268";
-    public final static String DB_NAME = "my database";
 
     private CityAdapter cityAdapter;
     private List<City> cities;
@@ -58,44 +56,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         };
 
-        database = Room.databaseBuilder(this,
-                CityDataBase.class, DB_NAME)
-                .fallbackToDestructiveMigration()
-                .build();
+        database.getDatabase();
 
         recyclerView = findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         cityAdapter = new CityAdapter(new ArrayList<City>(0), callback);
         recyclerView.setAdapter(cityAdapter);
-
-       /* NetworkService.getNetworkService().getWeatherApi().getData(KAZANLAT, KAZANLON, NEAREST_CITIES_AMOUNT, apiKey)
-                .enqueue(new Callback<WeatherResponse>() {
-                    @Override
-                    public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull Response<WeatherResponse> response) {
-                        WeatherResponse weatherResponse = response.body();
-                        if (weatherResponse != null) {
-                            List<City> cities = weatherResponse.getCities();
-                            Observable<List<City>> citiesFlow = Observable.fromArray(cities);
-                            Observable<List<City>> dbCities = database.getWeatherDao().getAllCities();
-
-                            Observable.concat(citiesFlow, dbCities)
-                                    .filter(new Predicate<List<City>>() {
-                                        @Override
-                                        public boolean test(List<City> cities) throws Exception {
-                                            return !cities.isEmpty();
-                                        }
-                                    })
-                                    .first(Collections.<City>emptyList())
-                                    .subscribe();
-                            cityAdapter.setCities(cities);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
-                        Toast.makeText(MainActivity.this, "An error occurred during networking", Toast.LENGTH_SHORT).show();
-                    }
-                });*/
 
         NetworkService.getNetworkService()
                 .getWeatherApi()
