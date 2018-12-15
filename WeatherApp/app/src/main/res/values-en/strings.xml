@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="textview">Text</string>
+    <string name="city_titel">City</string>
+    <string name="country_titel">Country</string>
+    <string name="temp_titel">Temperature</string>
+    <string name="humidity_titel">Humidity</string>
+    <string name="wind_titel">Wind</string>
+    <string name="pressure_titel">Pressure</string>
+</resources>

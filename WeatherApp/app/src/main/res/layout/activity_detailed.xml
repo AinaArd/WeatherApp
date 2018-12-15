@@ -8,6 +8,61 @@
     tools:context=".DetailedActivity">
 
     <TextView
+        android:id="@+id/tv_city_titel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titel_style"
+        android:text="@string/city_titel"
+        app:layout_constraintBottom_toTopOf="@+id/tv_country_titel"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+    <TextView
+        android:id="@+id/tv_country_titel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titel_style"
+        android:text="@string/country_titel"
+        app:layout_constraintBottom_toTopOf="@+id/tv_temp_titel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_city_titel" />
+
+    <TextView
+        android:id="@+id/tv_temp_titel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titel_style"
+        android:text="@string/temp_titel"
+        app:layout_constraintBottom_toTopOf="@+id/tv_humidity_titel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_country_titel" />
+
+    <TextView
+        android:id="@+id/tv_humidity_titel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titel_style"
+        android:text="@string/humidity_titel"
+        app:layout_constraintBottom_toTopOf="@+id/tv_wind_titel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_temp_titel" />
+
+    <TextView
+        android:id="@+id/tv_wind_titel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titel_style"
+        android:text="@string/wind_titel"
+        app:layout_constraintBottom_toTopOf="@+id/tv_pressure_titel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_humidity_titel" />
+
+    <TextView
+        android:id="@+id/tv_pressure_titel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titel_style"
+        android:text="@string/pressure_titel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_wind_titel" />
+
+    <TextView
         android:id="@+id/tv_city_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,9 +88,9 @@
         android:layout_height="wrap_content"
         android:text="@string/textview"
         app:layout_constraintBottom_toTopOf="@+id/tv_country_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_humidity"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_humidity" />
 
     <TextView
         android:id="@+id/tv_humidity"
@@ -43,9 +98,9 @@
         android:layout_height="wrap_content"
         android:text="@string/textview"
         app:layout_constraintBottom_toTopOf="@+id/tv_temp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_wind"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_wind" />
 
     <TextView
         android:id="@+id/tv_wind"
@@ -53,9 +108,9 @@
         android:layout_height="wrap_content"
         android:text="@string/textview"
         app:layout_constraintBottom_toTopOf="@+id/tv_humidity"
-        app:layout_constraintTop_toBottomOf="@+id/tv_city_name"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_city_name" />
 
     <TextView
         android:id="@+id/tv_pressure"
@@ -63,9 +118,9 @@
         android:layout_height="wrap_content"
         android:text="@string/textview"
         app:layout_constraintBottom_toTopOf="@+id/tv_city_name"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread" />
 
 </android.support.constraint.ConstraintLayout>
