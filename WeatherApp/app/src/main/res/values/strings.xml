@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">WeatherApp</string>
+    <string name="app_name">Погода</string>
+    <string name="textview">текст</string>
+    <string name="city">Город</string>
+    <string name="country">Страна</string>
+    <string name="temp">Температура</string>
+    <string name="humiduty">Влажность</string>
+    <string name="wind">Ветер</string>
+    <string name="pressure">Давление</string>
 </resources>
